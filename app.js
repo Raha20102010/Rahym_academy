@@ -206,45 +206,73 @@ sidebar.addEventListener('click', (e) => {
 });
 
 // Chat Widget Functionality
-const chatWidget = document.getElementById('chatWidget');
-const chatToggle = document.getElementById('chatToggle');
-const chatMessages = document.getElementById('chatMessages');
-const chatInput = document.getElementById('chatInput');
-const sendMessage = document.getElementById('sendMessage');
+document.addEventListener('DOMContentLoaded', () => {
+    const chatWidget = document.getElementById('chatWidget');
+    const chatToggle = document.getElementById('chatToggle');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendMessage = document.getElementById('sendMessage');
+    const chatContainer = document.querySelector('.chat-container');
 
-// Toggle chat widget
-chatToggle.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevent event from bubbling
-    chatWidget.classList.toggle('active');
-    if (chatWidget.classList.contains('active')) {
-        chatInput.focus();
-    }
-});
-
-// Close chat when clicking outside
-document.addEventListener('click', (e) => {
-    if (!chatWidget.contains(e.target) && chatWidget.classList.contains('active')) {
-        chatWidget.classList.remove('active');
-    }
-});
-
-// Prevent chat container clicks from closing the chat
-document.querySelector('.chat-container').addEventListener('click', (e) => {
-    e.stopPropagation();
-});
-
-// Auto-resize textarea
-chatInput.addEventListener('input', function() {
-    this.style.height = 'auto';
-    this.style.height = (this.scrollHeight) + 'px';
-});
-
-// Send message on enter (shift+enter for new line)
-chatInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    // Toggle chat widget
+    chatToggle.addEventListener('click', function(e) {
         e.preventDefault();
-        sendMessage.click();
-    }
+        e.stopPropagation();
+        chatWidget.classList.toggle('active');
+        if (chatWidget.classList.contains('active')) {
+            chatInput.focus();
+        }
+    });
+
+    // Prevent chat container clicks from closing
+    chatContainer.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    // Close chat when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!chatWidget.contains(e.target)) {
+            chatWidget.classList.remove('active');
+        }
+    });
+
+    // Auto-resize textarea
+    chatInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    // Send message on enter (shift+enter for new line)
+    chatInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage.click();
+        }
+    });
+
+    // Handle send message button
+    sendMessage.addEventListener('click', async function() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        // Add user message
+        addMessage(message, true);
+        chatInput.value = '';
+        chatInput.style.height = 'auto';
+
+        // Show typing indicator
+        const typingIndicator = showTypingIndicator();
+
+        // Get and display AI response
+        try {
+            const response = await getAIResponse(message);
+            typingIndicator.remove();
+            addMessage(response);
+        } catch (error) {
+            typingIndicator.remove();
+            addMessage('Sorry, there was an error. Please try again later.');
+        }
+    });
 });
 
 // Add message to chat
@@ -327,23 +355,4 @@ async function getAIResponse(userMessage) {
 
         return response;
     }
-}
-
-// Handle send message
-sendMessage.addEventListener('click', async () => {
-    const message = chatInput.value.trim();
-    if (!message) return;
-
-    // Add user message
-    addMessage(message, true);
-    chatInput.value = '';
-    chatInput.style.height = 'auto';
-
-    // Show typing indicator
-    const typingIndicator = showTypingIndicator();
-
-    // Get and display AI response
-    const response = await getAIResponse(message);
-    typingIndicator.remove();
-    addMessage(response);
-}); 
+} 
