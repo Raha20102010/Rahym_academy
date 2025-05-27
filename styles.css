@@ -9,16 +9,35 @@ body {
     background-color: #f5f5f5;
     min-height: 100vh;
     padding: 2rem;
+    background-image: 
+        radial-gradient(circle at 50% 50%, transparent 2px, #f5f5f5 2px),
+        linear-gradient(45deg, transparent 49%, #e8e8e8 49%, #e8e8e8 51%, transparent 51%),
+        linear-gradient(-45deg, transparent 49%, #e8e8e8 49%, #e8e8e8 51%, transparent 51%);
+    background-size: 50px 50px, 50px 50px, 50px 50px;
+    background-position: 0 0;
+    animation: subtleFloat 120s linear infinite;
+}
+
+@keyframes subtleFloat {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 100px 100px;
+    }
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 /* Hero Section */
 .hero-section {
-    background-color: white;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 3rem;
     border-radius: 15px;
     margin-bottom: 2rem;
@@ -125,7 +144,8 @@ body {
 
 /* Course Filters */
 .level-filters {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 1rem;
     border-radius: 10px;
     margin-bottom: 2rem;
@@ -165,7 +185,8 @@ body {
 }
 
 .lesson-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -237,7 +258,8 @@ body {
 
 /* Cart Section */
 .cart {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 1.5rem;
     border-radius: 10px;
     height: fit-content;
@@ -465,4 +487,10 @@ html {
 .level-filters button:nth-child(1) { animation-delay: 1.4s; }
 .level-filters button:nth-child(2) { animation-delay: 1.5s; }
 .level-filters button:nth-child(3) { animation-delay: 1.6s; }
-.level-filters button:nth-child(4) { animation-delay: 1.7s; } 
+.level-filters button:nth-child(4) { animation-delay: 1.7s; }
+
+/* Add a subtle overlay to make content pop */
+.hero-section, .level-filters, .cart, .lessons-grid > * {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+} 
