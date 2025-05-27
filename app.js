@@ -200,5 +200,118 @@ sidebar.addEventListener('click', (e) => {
     e.stopPropagation();
 });
 
+// Chat Widget Functionality
+const chatWidget = document.getElementById('chatWidget');
+const chatToggle = document.getElementById('chatToggle');
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const sendMessage = document.getElementById('sendMessage');
+
+// Toggle chat widget
+chatToggle.addEventListener('click', () => {
+    chatWidget.classList.toggle('active');
+    if (chatWidget.classList.contains('active')) {
+        chatInput.focus();
+    }
+});
+
+// Auto-resize textarea
+chatInput.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+});
+
+// Send message on enter (shift+enter for new line)
+chatInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage.click();
+    }
+});
+
+// Add message to chat
+function addMessage(message, isUser = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+    messageDiv.innerHTML = `
+        <div class="message-content">
+            ${message}
+        </div>
+    `;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Show typing indicator
+function showTypingIndicator() {
+    const indicator = document.createElement('div');
+    indicator.className = 'typing-indicator';
+    indicator.innerHTML = `
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+    `;
+    chatMessages.appendChild(indicator);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return indicator;
+}
+
+// AI response function
+async function getAIResponse(userMessage) {
+    // Predefined responses based on keywords
+    const responses = {
+        'price': 'Biziň kurslarymyzyň bahasy aýda $300. Bu bahanyň içine ähli sapaklar we materiallar girýär.',
+        'course': 'Biz dürli derejede iňlis dili kurslaryny hödürleýäris: Başlangyç (A1-A2), Orta (B1-B2) we Ýokary (C1-C2) derejeleri.',
+        'teacher': 'Biziň mugallymlarymyz tejribeli we hünärmen. Olar iňlis dilini öwretmekde ýörite sertifikatlara eýe.',
+        'online': 'Hawa, biz online sapaklary hödürleýäris. Sapaklar Zoom ýa-da Google Meet arkaly geçirilýär.',
+        'schedule': 'Sapak wagtlaryny siziň amatlylygňyza görä düzüp bileris. Adatça sapaklar hepdede 3 gezek geçirilýär.',
+        'duration': 'Her sapak 1 sagat 30 minut dowam edýär.',
+        'material': 'Ähli okuw materiallary mugt berilýär. Biz häzirki zaman okuw kitaplaryny we online resurslary ulanýarys.',
+        'certificate': 'Kursy üstünlikli tamamlan soň, size sertifikat berilýär.',
+        'payment': 'Töleg her aýyň başynda edilýär. Biz nagt we bank geçirmeleri kabul edýäris.',
+        'trial': 'Hawa, biz mugt synag sapadyny hödürleýäris. Şol sapakda siziň derejeňizi kesgitläp, size gabat gelýän topary saýlarys.',
+        'contact': 'Biz bilen WhatsApp (+60104210238) ýa-da Telegram (@rahim_5500) arkaly habarlaşyp bilersiňiz.',
+        'location': 'Häzirki wagtda diňe online sapaklar geçirilýär.',
+        'registration': 'Ýazylmak üçin, WhatsApp ýa-da Telegram arkaly habarlaşyp bilersiňiz.',
+        'level': 'Siziň derejeňizi kesgitlemek üçin, biz mugt test geçirýäris.',
+        'group': 'Toparlar 4-6 adamdan ybarat. Bu her okuwça ýeterlik üns bermäge mümkinçilik berýär.'
+    };
+
+    // Default response if no keyword match is found
+    let response = 'Bagyşlaň, men size başga maglumat berip bilerin. Sapaklar, bahalar ýa-da beýleki soraglar barada sorap bilersiňiz.';
+
+    // Check message for keywords
+    const message = userMessage.toLowerCase();
+    for (const [keyword, answer] of Object.entries(responses)) {
+        if (message.includes(keyword)) {
+            response = answer;
+            break;
+        }
+    }
+
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return response;
+}
+
+// Handle send message
+sendMessage.addEventListener('click', async () => {
+    const message = chatInput.value.trim();
+    if (!message) return;
+
+    // Add user message
+    addMessage(message, true);
+    chatInput.value = '';
+    chatInput.style.height = 'auto';
+
+    // Show typing indicator
+    const typingIndicator = showTypingIndicator();
+
+    // Get and display AI response
+    const response = await getAIResponse(message);
+    typingIndicator.remove();
+    addMessage(response);
+});
+
 // Initial render
 renderLessons(); 

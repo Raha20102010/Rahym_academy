@@ -174,5 +174,40 @@
         </div>
     </div>
     <script src="app.js"></script>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <button class="chat-toggle" id="chatToggle">
+            <span class="material-icons chat-icon">chat</span>
+            <span class="material-icons close-icon">close</span>
+        </button>
+        
+        <div class="chat-container">
+            <div class="chat-header">
+                <h3>Rahym Academy Kömekçisi</h3>
+                <p class="chat-subtitle">Size nähili kömek edip bilerin? 🤖</p>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="message-content">
+                        Salam! Men Rahym Academy-niň AI kömekçisi. Size nähili kömek edip bilerin?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <textarea 
+                    id="chatInput" 
+                    placeholder="Soraglaryňyzy ýazyň..."
+                    rows="1"
+                    maxlength="500"
+                ></textarea>
+                <button id="sendMessage">
+                    <span class="material-icons">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html> 
