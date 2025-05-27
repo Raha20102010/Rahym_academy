@@ -213,11 +213,24 @@ const chatInput = document.getElementById('chatInput');
 const sendMessage = document.getElementById('sendMessage');
 
 // Toggle chat widget
-chatToggle.addEventListener('click', () => {
+chatToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent event from bubbling
     chatWidget.classList.toggle('active');
     if (chatWidget.classList.contains('active')) {
         chatInput.focus();
     }
+});
+
+// Close chat when clicking outside
+document.addEventListener('click', (e) => {
+    if (!chatWidget.contains(e.target) && chatWidget.classList.contains('active')) {
+        chatWidget.classList.remove('active');
+    }
+});
+
+// Prevent chat container clicks from closing the chat
+document.querySelector('.chat-container').addEventListener('click', (e) => {
+    e.stopPropagation();
 });
 
 // Auto-resize textarea
