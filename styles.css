@@ -404,13 +404,11 @@ body {
     justify-content: center;
     gap: 0.5rem;
     transition: all 0.3s ease;
-    margin-top: 1rem;
-    font-size: 1rem;
+    width: 100%;
 }
 
 .whatsapp-btn {
     background-color: #25D366;
-    margin-right: 0.5rem;
 }
 
 .telegram-btn {
@@ -441,6 +439,7 @@ body {
     .hero-section {
         flex-direction: column;
         text-align: center;
+        padding: 2rem;
     }
 
     .main-content {
@@ -481,11 +480,6 @@ body {
         margin-right: 0;
         margin-top: 0.5rem;
         padding: 1rem;
-    }
-    
-    .whatsapp-icon, .telegram-icon {
-        width: 24px;
-        height: 24px;
     }
 }
 

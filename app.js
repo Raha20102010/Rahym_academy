@@ -54,7 +54,6 @@ const lessons = [
 const lessonsContainer = document.getElementById('lessonsContainer');
 const cartItems = document.getElementById('cartItems');
 const cartTotal = document.getElementById('cartTotal');
-const checkoutBtn = document.getElementById('checkoutBtn');
 const filterBtns = document.querySelectorAll('.filter-btn');
 
 // Shopping cart array
@@ -135,27 +134,43 @@ filterBtns.forEach(btn => {
     });
 });
 
-// Checkout handler
-checkoutBtn.addEventListener('click', () => {
+// Handle checkout buttons
+document.getElementById('checkoutBtnWhatsapp').addEventListener('click', () => {
     if (cart.length === 0) {
         alert('Your cart is empty!');
         return;
     }
+
+    let message = "Hello! I would like to enroll in the following courses:\n\n";
     
-    const courseNames = cart.map(item => item.title).join(', ');
-    const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+    cart.forEach(item => {
+        message += `• ${item.title} - $${item.price}/month\n`;
+    });
     
-    // Create WhatsApp message
-    const message = `Hello! I would like to enroll in the following course(s): ${courseNames}. Total monthly investment: $${totalAmount}/month`;
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    message += `\nTotal Investment: $${total.toFixed(2)}/month`;
+    
     const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/60104210238?text=${encodedMessage}`;
+    window.open(`https://wa.me/60104210238?text=${encodedMessage}`, '_blank');
+});
+
+document.getElementById('checkoutBtnTelegram').addEventListener('click', () => {
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+    }
+
+    let message = "Hello! I would like to enroll in the following courses:\n\n";
     
-    // Open WhatsApp in new tab
-    window.open(whatsappURL, '_blank');
+    cart.forEach(item => {
+        message += `• ${item.title} - $${item.price}/month\n`;
+    });
     
-    // Clear cart
-    cart = [];
-    updateCart();
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    message += `\nTotal Investment: $${total.toFixed(2)}/month`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://t.me/rahim_5500?text=${encodedMessage}`, '_blank');
 });
 
 // Initial render
