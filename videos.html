@@ -8,8 +8,22 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Add Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .video-preview {
+            max-width: 300px;
+            margin: 10px 0;
+        }
+        .logout-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body>
+    <button class="btn btn-danger logout-btn" onclick="logout()">Logout</button>
+
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
@@ -51,11 +65,7 @@
                         <label for="videoFile" class="form-label">Video File</label>
                         <input type="file" class="form-control" id="videoFile" accept="video/*" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="emailTo" class="form-label">Send to Email</label>
-                        <input type="email" class="form-control" id="emailTo" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Upload & Send</button>
+                    <button type="submit" class="btn btn-primary">Upload Video</button>
                 </form>
             </div>
         </div>
@@ -73,6 +83,93 @@
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="videos.js"></script>
+    <script>
+        // Check authentication
+        if (!localStorage.getItem('adminAuthenticated')) {
+            window.location.href = 'admin-login.html';
+        }
+
+        const videoUploadForm = document.getElementById('videoUploadForm');
+        const videoList = document.getElementById('videoList');
+
+        // Load existing videos
+        loadVideos();
+
+        videoUploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const file = document.getElementById('videoFile').files[0];
+            const title = document.getElementById('videoTitle').value;
+            const description = document.getElementById('videoDescription').value;
+
+            // Create video URL
+            const videoUrl = URL.createObjectURL(file);
+
+            // Save video data
+            const video = {
+                title,
+                description,
+                url: videoUrl,
+                filename: file.name,
+                timestamp: new Date().toISOString()
+            };
+
+            addVideoToList(video);
+            videoUploadForm.reset();
+        });
+
+        function addVideoToList(video) {
+            const videos = JSON.parse(localStorage.getItem('videos') || '[]');
+            videos.unshift(video);
+            localStorage.setItem('videos', JSON.stringify(videos));
+            
+            const videoElement = createVideoElement(video);
+            videoList.insertBefore(videoElement, videoList.firstChild);
+        }
+
+        function loadVideos() {
+            const videos = JSON.parse(localStorage.getItem('videos') || '[]');
+            videos.forEach(video => {
+                const videoElement = createVideoElement(video);
+                videoList.appendChild(videoElement);
+            });
+        }
+
+        function createVideoElement(video) {
+            const element = document.createElement('div');
+            element.className = 'list-group-item';
+            element.innerHTML = `
+                <div class="d-flex w-100 justify-content-between align-items-start">
+                    <div>
+                        <h5 class="mb-1">${video.title}</h5>
+                        <p class="mb-1">${video.description}</p>
+                        <small class="text-muted">Uploaded: ${new Date(video.timestamp).toLocaleString()}</small>
+                    </div>
+                    <div class="text-end">
+                        <a href="${video.url}" download="${video.filename}" class="btn btn-sm btn-primary">Download</a>
+                        <button onclick="deleteVideo('${video.timestamp}')" class="btn btn-sm btn-danger ms-2">Delete</button>
+                    </div>
+                </div>
+            `;
+            return element;
+        }
+
+        function deleteVideo(timestamp) {
+            const videos = JSON.parse(localStorage.getItem('videos') || '[]');
+            const updatedVideos = videos.filter(v => v.timestamp !== timestamp);
+            localStorage.setItem('videos', JSON.stringify(updatedVideos));
+            loadVideoList();
+        }
+
+        function loadVideoList() {
+            videoList.innerHTML = '';
+            loadVideos();
+        }
+
+        function logout() {
+            localStorage.removeItem('adminAuthenticated');
+            window.location.href = 'admin-login.html';
+        }
+    </script>
 </body>
 </html> 
