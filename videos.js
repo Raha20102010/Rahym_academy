@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Check authentication
+    const adminToken = localStorage.getItem('adminToken');
+    if (!adminToken) {
+        window.location.href = '/admin-login.html';
+        return;
+    }
+
     const videoUploadForm = document.getElementById('videoUploadForm');
     const videoList = document.getElementById('videoList');
     
@@ -17,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('/api/upload-video', {
                 method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${adminToken}`
+                },
                 body: formData
             });
             
@@ -31,6 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Clear form
                 videoUploadForm.reset();
                 alert('Video uploaded and email sent successfully!');
+            } else if (response.status === 401) {
+                alert('Session expired. Please login again.');
+                window.location.href = '/admin-login.html';
             } else {
                 throw new Error('Upload failed');
             }
@@ -39,6 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Failed to upload video and send email. Please try again.');
         }
     });
+    
+    // Add logout button functionality
+    const logoutButton = document.createElement('button');
+    logoutButton.className = 'btn btn-danger position-fixed top-0 end-0 m-3';
+    logoutButton.textContent = 'Logout';
+    logoutButton.addEventListener('click', () => {
+        localStorage.removeItem('adminToken');
+        window.location.href = '/admin-login.html';
+    });
+    document.body.appendChild(logoutButton);
     
     function addVideoToList(video) {
         const videos = JSON.parse(localStorage.getItem('videos') || '[]');

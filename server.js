@@ -4,15 +4,39 @@ const multer = require('multer');
 const nodemailer = require('nodemailer');
 const path = require('path');
 const OpenAI = require('openai');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const app = express();
 const openai = new OpenAI();
 
+// JWT secret key
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+// Admin password
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'your-admin-password';
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
+
+// Authentication middleware
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).json({ error: 'Authentication required' });
+    }
+
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+        if (err) {
+            return res.status(403).json({ error: 'Invalid token' });
+        }
+        req.user = user;
+        next();
+    });
+};
 
 // Configure multer for video uploads
 const storage = multer.diskStorage({
@@ -35,8 +59,20 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Handle video uploads and email sending
-app.post('/api/upload-video', upload.single('video'), async (req, res) => {
+// Admin login endpoint
+app.post('/api/admin-login', (req, res) => {
+    const { password } = req.body;
+
+    if (password === ADMIN_PASSWORD) {
+        const token = jwt.sign({ role: 'admin' }, JWT_SECRET, { expiresIn: '24h' });
+        res.json({ token });
+    } else {
+        res.status(401).json({ error: 'Invalid password' });
+    }
+});
+
+// Handle video uploads and email sending (protected route)
+app.post('/api/upload-video', authenticateToken, upload.single('video'), async (req, res) => {
     try {
         const { title, description, email } = req.body;
         const videoPath = req.file.path;
