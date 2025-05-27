@@ -6,7 +6,7 @@ const lessons = [
         level: "beginner",
         price: 300,
         image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=500",
-        description: "Master essential grammar, vocabulary, and basic conversation skills"
+        description: "Esasy grammatika, sözlük we ýönekeý gürrüňdeşlik başarnyklaryny öwreniň"
     },
     {
         id: 2,
@@ -14,7 +14,7 @@ const lessons = [
         level: "intermediate",
         price: 300,
         image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500",
-        description: "Develop professional English skills for the modern workplace"
+        description: "Häzirki zaman iş dünýäsi üçin professional iňlis dili başarnyklaryny ösdüriň"
     },
     {
         id: 3,
@@ -22,7 +22,7 @@ const lessons = [
         level: "advanced",
         price: 300,
         image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=500",
-        description: "Perfect your English with advanced techniques and native fluency"
+        description: "Öňdebaryjy usullar we ýerli aksentler bilen iňlis diliňizi kämilleşdiriň"
     },
     {
         id: 4,
@@ -30,7 +30,7 @@ const lessons = [
         level: "beginner",
         price: 300,
         image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=500",
-        description: "Build confidence in everyday English conversations"
+        description: "Gündelik iňlis dilinde gürrüňdeşmekde özüňize ynam döretmegi öwreniň"
     },
     {
         id: 5,
@@ -38,7 +38,7 @@ const lessons = [
         level: "advanced",
         price: 300,
         image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=500",
-        description: "Prepare for academic success with advanced English skills"
+        description: "Öňdebaryjy iňlis dili başarnyklary bilen akademiki üstünlik üçin taýýarlanyň"
     },
     {
         id: 6,
@@ -46,7 +46,7 @@ const lessons = [
         level: "intermediate",
         price: 300,
         image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=500",
-        description: "Enhance your career prospects with specialized English training"
+        description: "Ýöriteleşdirilen iňlis dili tälimi bilen karýera mümkinçilikleriňizi artdyryň"
     }
 ];
 
