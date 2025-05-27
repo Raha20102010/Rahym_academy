@@ -50,6 +50,11 @@ const lessons = [
     }
 ];
 
+// Initial render - moved to top to ensure it runs immediately
+document.addEventListener('DOMContentLoaded', () => {
+    renderLessons();
+});
+
 // Get DOM elements
 const lessonsContainer = document.getElementById('lessonsContainer');
 const cartItems = document.getElementById('cartItems');
@@ -258,40 +263,57 @@ function showTypingIndicator() {
 
 // AI response function
 async function getAIResponse(userMessage) {
-    // Predefined responses based on keywords
-    const responses = {
-        'price': 'Biziň kurslarymyzyň bahasy aýda $300. Bu bahanyň içine ähli sapaklar we materiallar girýär.',
-        'course': 'Biz dürli derejede iňlis dili kurslaryny hödürleýäris: Başlangyç (A1-A2), Orta (B1-B2) we Ýokary (C1-C2) derejeleri.',
-        'teacher': 'Biziň mugallymlarymyz tejribeli we hünärmen. Olar iňlis dilini öwretmekde ýörite sertifikatlara eýe.',
-        'online': 'Hawa, biz online sapaklary hödürleýäris. Sapaklar Zoom ýa-da Google Meet arkaly geçirilýär.',
-        'schedule': 'Sapak wagtlaryny siziň amatlylygňyza görä düzüp bileris. Adatça sapaklar hepdede 3 gezek geçirilýär.',
-        'duration': 'Her sapak 1 sagat 30 minut dowam edýär.',
-        'material': 'Ähli okuw materiallary mugt berilýär. Biz häzirki zaman okuw kitaplaryny we online resurslary ulanýarys.',
-        'certificate': 'Kursy üstünlikli tamamlan soň, size sertifikat berilýär.',
-        'payment': 'Töleg her aýyň başynda edilýär. Biz nagt we bank geçirmeleri kabul edýäris.',
-        'trial': 'Hawa, biz mugt synag sapadyny hödürleýäris. Şol sapakda siziň derejeňizi kesgitläp, size gabat gelýän topary saýlarys.',
-        'contact': 'Biz bilen WhatsApp (+60104210238) ýa-da Telegram (@rahim_5500) arkaly habarlaşyp bilersiňiz.',
-        'location': 'Häzirki wagtda diňe online sapaklar geçirilýär.',
-        'registration': 'Ýazylmak üçin, WhatsApp ýa-da Telegram arkaly habarlaşyp bilersiňiz.',
-        'level': 'Siziň derejeňizi kesgitlemek üçin, biz mugt test geçirýäris.',
-        'group': 'Toparlar 4-6 adamdan ybarat. Bu her okuwça ýeterlik üns bermäge mümkinçilik berýär.'
-    };
+    try {
+        // Try to use the API first
+        const response = await fetch('http://localhost:3000/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: userMessage })
+        });
 
-    // Default response if no keyword match is found
-    let response = 'Bagyşlaň, men size başga maglumat berip bilerin. Sapaklar, bahalar ýa-da beýleki soraglar barada sorap bilersiňiz.';
-
-    // Check message for keywords
-    const message = userMessage.toLowerCase();
-    for (const [keyword, answer] of Object.entries(responses)) {
-        if (message.includes(keyword)) {
-            response = answer;
-            break;
+        if (!response.ok) {
+            throw new Error('API not available');
         }
-    }
 
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    return response;
+        const data = await response.json();
+        return data.response;
+    } catch (error) {
+        console.log('Falling back to local responses');
+        // Fallback to predefined responses if API is not available
+        const responses = {
+            'price': 'Biziň kurslarymyzyň bahasy aýda $300. Bu bahanyň içine ähli sapaklar we materiallar girýär.',
+            'course': 'Biz dürli derejede iňlis dili kurslaryny hödürleýäris: Başlangyç (A1-A2), Orta (B1-B2) we Ýokary (C1-C2) derejeleri.',
+            'teacher': 'Biziň mugallymlarymyz tejribeli we hünärmen. Olar iňlis dilini öwretmekde ýörite sertifikatlara eýe.',
+            'online': 'Hawa, biz online sapaklary hödürleýäris. Sapaklar Zoom ýa-da Google Meet arkaly geçirilýär.',
+            'schedule': 'Sapak wagtlaryny siziň amatlylygňyza görä düzüp bileris. Adatça sapaklar hepdede 3 gezek geçirilýär.',
+            'duration': 'Her sapak 1 sagat 30 minut dowam edýär.',
+            'material': 'Ähli okuw materiallary mugt berilýär. Biz häzirki zaman okuw kitaplaryny we online resurslary ulanýarys.',
+            'certificate': 'Kursy üstünlikli tamamlan soň, size sertifikat berilýär.',
+            'payment': 'Töleg her aýyň başynda edilýär. Biz nagt we bank geçirmeleri kabul edýäris.',
+            'trial': 'Hawa, biz mugt synag sapadyny hödürleýäris. Şol sapakda siziň derejeňizi kesgitläp, size gabat gelýän topary saýlarys.',
+            'contact': 'Biz bilen WhatsApp (+60104210238) ýa-da Telegram (@rahim_5500) arkaly habarlaşyp bilersiňiz.',
+            'location': 'Häzirki wagtda diňe online sapaklar geçirilýär.',
+            'registration': 'Ýazylmak üçin, WhatsApp ýa-da Telegram arkaly habarlaşyp bilersiňiz.',
+            'level': 'Siziň derejeňizi kesgitlemek üçin, biz mugt test geçirýäris.',
+            'group': 'Toparlar 4-6 adamdan ybarat. Bu her okuwça ýeterlik üns bermäge mümkinçilik berýär.'
+        };
+
+        // Default response if no keyword match is found
+        let response = 'Bagyşlaň, men size başga maglumat berip bilerin. Sapaklar, bahalar ýa-da beýleki soraglar barada sorap bilersiňiz.';
+
+        // Check message for keywords
+        const message = userMessage.toLowerCase();
+        for (const [keyword, answer] of Object.entries(responses)) {
+            if (message.includes(keyword)) {
+                response = answer;
+                break;
+            }
+        }
+
+        return response;
+    }
 }
 
 // Handle send message
@@ -311,7 +333,4 @@ sendMessage.addEventListener('click', async () => {
     const response = await getAIResponse(message);
     typingIndicator.remove();
     addMessage(response);
-});
-
-// Initial render
-renderLessons(); 
+}); 
