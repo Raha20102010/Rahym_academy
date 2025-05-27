@@ -173,5 +173,32 @@ document.getElementById('checkoutBtnTelegram').addEventListener('click', () => {
     window.open(`https://t.me/rahim_5500?text=${encodedMessage}`, '_blank');
 });
 
+// Sidebar functionality
+const sidebar = document.getElementById('sidebar');
+const sidebarToggle = document.getElementById('sidebarToggle');
+const closeSidebar = document.getElementById('closeSidebar');
+
+sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.add('active');
+});
+
+closeSidebar.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+});
+
+// Close sidebar when clicking outside
+document.addEventListener('click', (e) => {
+    if (sidebar.classList.contains('active') &&
+        !sidebar.contains(e.target) &&
+        !sidebarToggle.contains(e.target)) {
+        sidebar.classList.remove('active');
+    }
+});
+
+// Prevent clicks inside sidebar from closing it
+sidebar.addEventListener('click', (e) => {
+    e.stopPropagation();
+});
+
 // Initial render
 renderLessons(); 

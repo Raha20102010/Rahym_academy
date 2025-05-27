@@ -588,4 +588,176 @@ html {
 .hero-section, .level-filters, .cart, .lessons-grid > * {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+}
+
+/* Sidebar Styles */
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    background: #0056b3;
+    transform: scale(1.1);
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 320px;
+    height: 100vh;
+    background: white;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.close-sidebar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.close-sidebar:hover {
+    color: #007bff;
+    transform: scale(1.1);
+}
+
+.sidebar-content {
+    margin-top: 60px;
+}
+
+.sidebar-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-section h2 {
+    color: #007bff;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.sidebar-section h3 {
+    color: #333;
+    margin: 15px 0 10px;
+    font-size: 1.2rem;
+}
+
+.section-content {
+    color: #666;
+    line-height: 1.6;
+}
+
+.section-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.section-content li {
+    margin-bottom: 12px;
+    padding-left: 25px;
+    position: relative;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.contact-link.whatsapp {
+    background-color: #25D366;
+}
+
+.contact-link.telegram {
+    background-color: #0088cc;
+}
+
+.contact-link:hover {
+    transform: translateX(5px);
+    filter: brightness(1.1);
+}
+
+.contact-link svg {
+    width: 24px;
+    height: 24px;
+}
+
+.help-info {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #eee;
+}
+
+.help-info ul {
+    margin: 10px 0;
+}
+
+.help-info li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.response-time {
+    margin-top: 15px;
+    color: #28a745;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+    }
+    
+    .sidebar-toggle {
+        width: 45px;
+        height: 45px;
+    }
 } 
