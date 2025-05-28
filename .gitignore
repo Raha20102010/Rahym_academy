@@ -1,6 +1,23 @@
-.DS_Store
+# Dependencies
 node_modules/
+package-lock.json
+
+# Environment variables
 .env
+
+# OS files
+.DS_Store
+
+# Installer files
+*.pkg
+*.dmg
+*.exe
+*.msi
+
+# Logs
 *.log
-.vscode/
-.idea/ 
+npm-debug.log*
+
+# IDE files
+.idea/
+.vscode/ 
