@@ -185,35 +185,20 @@
     <script src="app.js"></script>
 
     <!-- Chat Widget -->
-    <div class="chat-widget" id="chatWidget">
-        <button class="chat-toggle" id="chatToggle">
-            <span class="material-icons chat-icon">chat</span>
-            <span class="material-icons close-icon">close</span>
+    <div class="chat-widget">
+        <button class="chat-toggle">
+            <i class="material-icons">chat</i>
         </button>
-        
         <div class="chat-container">
             <div class="chat-header">
-                <h3>Rahym Academy Kömekçisi</h3>
-                <p class="chat-subtitle">Size nähili kömek edip bilerin? 🤖</p>
+                <i class="material-icons">support_agent</i>
+                <span>Chat with us</span>
             </div>
-            
-            <div class="chat-messages" id="chatMessages">
-                <div class="message bot">
-                    <div class="message-content">
-                        Salam! Men Rahym Academy-niň AI kömekçisi. Size nähili kömek edip bilerin?
-                    </div>
-                </div>
-            </div>
-            
+            <div class="chat-messages"></div>
             <div class="chat-input">
-                <textarea 
-                    id="chatInput" 
-                    placeholder="Soraglaryňyzy ýazyň..."
-                    rows="1"
-                    maxlength="500"
-                ></textarea>
-                <button id="sendMessage">
-                    <span class="material-icons">send</span>
+                <textarea placeholder="Type your message..."></textarea>
+                <button>
+                    <i class="material-icons">send</i>
                 </button>
             </div>
         </div>
@@ -223,5 +208,8 @@
     <div style="text-align: center; margin-top: 20px; padding: 10px;">
         <a href="admin-login.html" style="color: #666; text-decoration: none; font-size: 12px;">Admin</a>
     </div>
+
+    <!-- Add this before the closing body tag -->
+    <script src="ui.js"></script>
 </body>
 </html> 
