@@ -309,6 +309,12 @@ body {
     height: 200px;
     object-fit: cover;
     border-bottom: 1px solid #eee;
+    background-color: #f8f9fa;
+    transition: transform 0.3s ease;
+}
+
+.lesson-card:hover .lesson-image {
+    transform: scale(1.05);
 }
 
 .lesson-content {

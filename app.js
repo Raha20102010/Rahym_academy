@@ -42,7 +42,7 @@ const lessons = [
             ]
         },
         level: 'beginner',
-        image: 'beginner.jpg'
+        image: 'https://img.freepik.com/free-vector/learning-concept-illustration_114360-6186.jpg'
     },
     {
         id: 2,
@@ -86,7 +86,7 @@ const lessons = [
             ]
         },
         level: 'beginner',
-        image: 'elementary.jpg'
+        image: 'https://img.freepik.com/free-vector/english-teacher-concept-illustration_114360-7477.jpg'
     },
     {
         id: 3,
@@ -130,7 +130,7 @@ const lessons = [
             ]
         },
         level: 'intermediate',
-        image: 'pre-intermediate.jpg'
+        image: 'https://img.freepik.com/free-vector/online-certification-illustration_23-2148575636.jpg'
     },
     {
         id: 4,
@@ -174,7 +174,7 @@ const lessons = [
             ]
         },
         level: 'intermediate',
-        image: 'intermediate.jpg'
+        image: 'https://img.freepik.com/free-vector/language-learning-concept-illustration_114360-6220.jpg'
     },
     {
         id: 5,
@@ -218,7 +218,7 @@ const lessons = [
             ]
         },
         level: 'advanced',
-        image: 'upper-intermediate.jpg'
+        image: 'https://img.freepik.com/free-vector/training-concept-illustration_114360-6267.jpg'
     },
     {
         id: 6,
@@ -262,7 +262,7 @@ const lessons = [
             ]
         },
         level: 'advanced',
-        image: 'advanced.jpg'
+        image: 'https://img.freepik.com/free-vector/online-learning-concept-illustration_114360-4103.jpg'
     },
     {
         id: 7,
@@ -306,7 +306,7 @@ const lessons = [
             ]
         },
         level: 'advanced',
-        image: 'business.jpg'
+        image: 'https://img.freepik.com/free-vector/business-presentation-concept-illustration_114360-7477.jpg'
     },
     {
         id: 8,
@@ -350,9 +350,50 @@ const lessons = [
             ]
         },
         level: 'advanced',
-        image: 'ielts.jpg'
+        image: 'https://img.freepik.com/free-vector/certification-concept-illustration_114360-5176.jpg'
     }
 ];
+
+const courseImages = {
+    beginner: 'https://img.freepik.com/free-vector/learning-concept-illustration_114360-6186.jpg',
+    elementary: 'https://img.freepik.com/free-vector/english-teacher-concept-illustration_114360-7477.jpg',
+    preIntermediate: 'https://img.freepik.com/free-vector/online-certification-illustration_23-2148575636.jpg',
+    intermediate: 'https://img.freepik.com/free-vector/language-learning-concept-illustration_114360-6220.jpg',
+    upperIntermediate: 'https://img.freepik.com/free-vector/training-concept-illustration_114360-6267.jpg',
+    advanced: 'https://img.freepik.com/free-vector/online-learning-concept-illustration_114360-4103.jpg',
+    business: 'https://img.freepik.com/free-vector/business-presentation-concept-illustration_114360-7477.jpg',
+    ielts: 'https://img.freepik.com/free-vector/certification-concept-illustration_114360-5176.jpg'
+};
+
+// Update the lessons array to use the new image URLs
+lessons.forEach(lesson => {
+    switch(lesson.id) {
+        case 1:
+            lesson.image = courseImages.beginner;
+            break;
+        case 2:
+            lesson.image = courseImages.elementary;
+            break;
+        case 3:
+            lesson.image = courseImages.preIntermediate;
+            break;
+        case 4:
+            lesson.image = courseImages.intermediate;
+            break;
+        case 5:
+            lesson.image = courseImages.upperIntermediate;
+            break;
+        case 6:
+            lesson.image = courseImages.advanced;
+            break;
+        case 7:
+            lesson.image = courseImages.business;
+            break;
+        case 8:
+            lesson.image = courseImages.ielts;
+            break;
+    }
+});
 
 // Get DOM elements
 const lessonsContainer = document.getElementById('lessonsContainer');
@@ -451,10 +492,10 @@ function renderLessons(filterLevel = 'all') {
 }
 
 function createLessonCard(lesson) {
-    const defaultImage = 'https://via.placeholder.com/300x200?text=Course+Image';
+    const defaultImage = 'https://img.freepik.com/free-vector/learning-concept-illustration_114360-6186.jpg';
     return `
         <div class="lesson-card" data-level="${lesson.level}">
-            <img src="images/${lesson.image}" alt="${lesson.title[currentLanguage]}" class="lesson-image" onerror="this.src='${defaultImage}'">
+            <img src="${lesson.image || defaultImage}" alt="${lesson.title[currentLanguage]}" class="lesson-image" onerror="this.src='${defaultImage}'">
             <div class="lesson-content">
                 <span class="lesson-level">${getLevelLabel(lesson.level)}</span>
                 <h3 class="lesson-title">${lesson.title[currentLanguage]}</h3>
