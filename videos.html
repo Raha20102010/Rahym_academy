@@ -102,20 +102,23 @@
             const title = document.getElementById('videoTitle').value;
             const description = document.getElementById('videoDescription').value;
 
-            // Create video URL
-            const videoUrl = URL.createObjectURL(file);
+            // Convert video file to base64
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const video = {
+                    id: Date.now(),
+                    title,
+                    description,
+                    data: e.target.result, // base64 encoded video data
+                    type: file.type,
+                    filename: file.name,
+                    uploadDate: new Date().toISOString()
+                };
 
-            // Save video data
-            const video = {
-                title,
-                description,
-                url: videoUrl,
-                filename: file.name,
-                timestamp: new Date().toISOString()
+                addVideoToList(video);
+                videoUploadForm.reset();
             };
-
-            addVideoToList(video);
-            videoUploadForm.reset();
+            reader.readAsDataURL(file);
         });
 
         function addVideoToList(video) {
@@ -140,23 +143,29 @@
             element.className = 'list-group-item';
             element.innerHTML = `
                 <div class="d-flex w-100 justify-content-between align-items-start">
-                    <div>
+                    <div class="flex-grow-1">
                         <h5 class="mb-1">${video.title}</h5>
                         <p class="mb-1">${video.description}</p>
-                        <small class="text-muted">Uploaded: ${new Date(video.timestamp).toLocaleString()}</small>
+                        <small class="text-muted">Uploaded: ${new Date(video.uploadDate).toLocaleString()}</small>
+                        <div class="mt-2">
+                            <video controls style="max-width: 100%; max-height: 200px;">
+                                <source src="${video.data}" type="${video.type}">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
                     </div>
-                    <div class="text-end">
-                        <a href="${video.url}" download="${video.filename}" class="btn btn-sm btn-primary">Download</a>
-                        <button onclick="deleteVideo('${video.timestamp}')" class="btn btn-sm btn-danger ms-2">Delete</button>
+                    <div class="text-end ms-3">
+                        <a href="${video.data}" download="${video.filename}" class="btn btn-sm btn-primary mb-2">Download</a>
+                        <button onclick="deleteVideo('${video.id}')" class="btn btn-sm btn-danger">Delete</button>
                     </div>
                 </div>
             `;
             return element;
         }
 
-        function deleteVideo(timestamp) {
+        function deleteVideo(videoId) {
             const videos = JSON.parse(localStorage.getItem('videos') || '[]');
-            const updatedVideos = videos.filter(v => v.timestamp !== timestamp);
+            const updatedVideos = videos.filter(v => v.id !== parseInt(videoId));
             localStorage.setItem('videos', JSON.stringify(updatedVideos));
             loadVideoList();
         }
@@ -165,6 +174,17 @@
             videoList.innerHTML = '';
             loadVideos();
         }
+
+        // Add file size check
+        document.getElementById('videoFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const maxSize = 50 * 1024 * 1024; // 50MB limit
+            
+            if (file.size > maxSize) {
+                alert('Video size must be less than 50MB. Please choose a smaller file.');
+                this.value = ''; // Clear the file input
+            }
+        });
 
         function logout() {
             localStorage.removeItem('adminAuthenticated');

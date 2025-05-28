@@ -121,10 +121,12 @@ function renderVideos() {
         videoCard.className = 'video-card';
         
         videoCard.innerHTML = `
-            <video class="video-thumbnail" controls>
-                <source src="${video.url}" type="${video.type}">
-                Your browser does not support the video tag.
-            </video>
+            <div class="video-player">
+                <video class="video-thumbnail" controls>
+                    <source src="${video.data}" type="${video.type}">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
             <div class="video-info">
                 <h3 class="video-title">${video.title}</h3>
                 <p class="video-description">${video.description}</p>
