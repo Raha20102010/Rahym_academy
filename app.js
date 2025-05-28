@@ -50,13 +50,26 @@ const lessons = [
     }
 ];
 
+// Sample video data (this will be replaced with actual videos from admin panel)
+const videos = [
+    {
+        id: 1,
+        title: "Welcome to Rahym Academy",
+        description: "Learn about our teaching methods and what makes us unique",
+        thumbnail: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=500",
+        uploadDate: "2024-03-20"
+    }
+];
+
 // Initial render - moved to top to ensure it runs immediately
 document.addEventListener('DOMContentLoaded', () => {
     renderLessons();
+    renderVideos();
 });
 
 // Get DOM elements
 const lessonsContainer = document.getElementById('lessonsContainer');
+const videoContainer = document.getElementById('videoContainer');
 const cartItems = document.getElementById('cartItems');
 const cartTotal = document.getElementById('cartTotal');
 const filterBtns = document.querySelectorAll('.filter-btn');
@@ -88,6 +101,31 @@ function renderLessons(filterLevel = 'all') {
         `;
         
         lessonsContainer.appendChild(lessonCard);
+    });
+}
+
+// Render videos
+function renderVideos() {
+    if (!videoContainer) return;
+    
+    videoContainer.innerHTML = '';
+    
+    videos.forEach(video => {
+        const videoCard = document.createElement('div');
+        videoCard.className = 'video-card';
+        
+        videoCard.innerHTML = `
+            <img src="${video.thumbnail}" alt="${video.title}" class="video-thumbnail">
+            <div class="video-info">
+                <h3 class="video-title">${video.title}</h3>
+                <p class="video-description">${video.description}</p>
+                <div class="video-meta">
+                    <span>Uploaded: ${video.uploadDate}</span>
+                </div>
+            </div>
+        `;
+        
+        videoContainer.appendChild(videoCard);
     });
 }
 
