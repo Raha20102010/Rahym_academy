@@ -142,10 +142,33 @@
 
         <!-- Course Filters -->
         <div class="level-filters">
-            <button class="filter-btn active" data-level="all">Ähli Derejeleri</button>
-            <button class="filter-btn" data-level="beginner">Başlangyç (A1-A2)</button>
-            <button class="filter-btn" data-level="intermediate">Orta (B1-B2)</button>
-            <button class="filter-btn" data-level="advanced">Ýokary (C1-C2)</button>
+            <div class="language-selector">
+                <button onclick="toggleLanguage('tm')" class="lang-btn active" data-lang="tm">🇹🇲 TM</button>
+                <button onclick="toggleLanguage('ru')" class="lang-btn" data-lang="ru">🇷🇺 RU</button>
+                <button onclick="toggleLanguage('en')" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-level="all">
+                    <span class="tm">Ähli Derejeleri</span>
+                    <span class="ru">Все уровни</span>
+                    <span class="en">All Levels</span>
+                </button>
+                <button class="filter-btn" data-level="beginner">
+                    <span class="tm">Başlangyç (A1-A2)</span>
+                    <span class="ru">Начальный (A1-A2)</span>
+                    <span class="en">Beginner (A1-A2)</span>
+                </button>
+                <button class="filter-btn" data-level="intermediate">
+                    <span class="tm">Orta (B1-B2)</span>
+                    <span class="ru">Средний (B1-B2)</span>
+                    <span class="en">Intermediate (B1-B2)</span>
+                </button>
+                <button class="filter-btn" data-level="advanced">
+                    <span class="tm">Ýokary (C1-C2)</span>
+                    <span class="ru">Продвинутый (C1-C2)</span>
+                    <span class="en">Advanced (C1-C2)</span>
+                </button>
+            </div>
         </div>
 
         <!-- Main Content -->
