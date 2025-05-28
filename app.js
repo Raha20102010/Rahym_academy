@@ -2,51 +2,45 @@
 const lessons = [
     {
         id: 1,
-        title: "Foundation English Course",
-        level: "beginner",
-        price: 300,
-        image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=500",
-        description: "Esasy grammatika, sözlük we ýönekeý gürrüňdeşlik başarnyklaryny öwreniň"
+        title: 'Beginner English Course (A1-A2)',
+        description: 'Perfect for absolute beginners. Learn basic grammar, vocabulary, and conversation skills.',
+        level: 'beginner',
+        image: 'beginner.jpg'
     },
     {
         id: 2,
-        title: "Business Communication",
-        level: "intermediate",
-        price: 300,
-        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500",
-        description: "Häzirki zaman iş dünýäsi üçin professional iňlis dili başarnyklaryny ösdüriň"
+        title: 'Elementary English Course (A2)',
+        description: 'Build a strong foundation in English with essential language skills and everyday communication.',
+        level: 'beginner',
+        image: 'elementary.jpg'
     },
     {
         id: 3,
-        title: "Advanced Mastery Program",
-        level: "advanced",
-        price: 300,
-        image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=500",
-        description: "Öňdebaryjy usullar we ýerli aksentler bilen iňlis diliňizi kämilleşdiriň"
+        title: 'Pre-Intermediate English Course (B1)',
+        description: 'Advance your English skills with more complex grammar and vocabulary.',
+        level: 'intermediate',
+        image: 'pre-intermediate.jpg'
     },
     {
         id: 4,
-        title: "Conversational English",
-        level: "beginner",
-        price: 300,
-        image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=500",
-        description: "Gündelik iňlis dilinde gürrüňdeşmekde özüňize ynam döretmegi öwreniň"
+        title: 'Intermediate English Course (B1-B2)',
+        description: 'Develop fluency and confidence in English through comprehensive practice.',
+        level: 'intermediate',
+        image: 'intermediate.jpg'
     },
     {
         id: 5,
-        title: "Academic Excellence",
-        level: "advanced",
-        price: 300,
-        image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=500",
-        description: "Öňdebaryjy iňlis dili başarnyklary bilen akademiki üstünlik üçin taýýarlanyň"
+        title: 'Upper-Intermediate Course (B2)',
+        description: 'Master advanced grammar and vocabulary for professional contexts.',
+        level: 'advanced',
+        image: 'upper-intermediate.jpg'
     },
     {
         id: 6,
-        title: "Professional Development",
-        level: "intermediate",
-        price: 300,
-        image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=500",
-        description: "Ýöriteleşdirilen iňlis dili tälimi bilen karýera mümkinçilikleriňizi artdyryň"
+        title: 'Advanced English Course (C1-C2)',
+        description: 'Achieve native-like fluency and master complex language skills.',
+        level: 'advanced',
+        image: 'advanced.jpg'
     }
 ];
 
@@ -71,19 +65,26 @@ function renderLessons(filterLevel = 'all') {
         const lessonCard = document.createElement('div');
         lessonCard.className = 'lesson-card';
         
-        lessonCard.innerHTML = `
-            <img src="${lesson.image}" alt="${lesson.title}" class="lesson-image">
-            <div class="lesson-content">
-                <span class="lesson-level">${lesson.level}</span>
-                <h3 class="lesson-title">${lesson.title}</h3>
-                <p class="lesson-description">${lesson.description}</p>
-                <div class="lesson-price">$${lesson.price}/month</div>
-                <button class="add-to-cart-btn" onclick="addToCart(${lesson.id})">Enroll Now</button>
-            </div>
-        `;
+        lessonCard.innerHTML = createLessonCard(lesson);
         
         lessonsContainer.appendChild(lessonCard);
     });
+}
+
+function createLessonCard(lesson) {
+    return `
+        <div class="lesson-card" data-level="${lesson.level}">
+            <img src="images/${lesson.image}" alt="${lesson.title}" class="lesson-image">
+            <div class="lesson-content">
+                <span class="lesson-level">${getLevelLabel(lesson.level)}</span>
+                <h3 class="lesson-title">${lesson.title}</h3>
+                <p class="lesson-description">${lesson.description}</p>
+                <button class="add-to-cart-btn" onclick="addToCart(${lesson.id})">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+    `;
 }
 
 // Add to cart
@@ -106,23 +107,15 @@ function removeFromCart(index) {
 // Update cart display
 function updateCart() {
     cartItems.innerHTML = '';
-    let total = 0;
     
-    cart.forEach((item, index) => {
-        const cartItem = document.createElement('div');
-        cartItem.className = 'cart-item';
-        
-        cartItem.innerHTML = `
-            <span class="cart-item-title">${item.title}</span>
-            <span class="cart-item-price">$${item.price}/month</span>
-            <button class="remove-from-cart" onclick="removeFromCart(${index})">×</button>
+    cart.forEach(item => {
+        cartItems.innerHTML += `
+            <div class="cart-item">
+                <span class="cart-item-title">${item.title}</span>
+                <button class="remove-from-cart" onclick="removeFromCart(${item.id})">×</button>
+            </div>
         `;
-        
-        cartItems.appendChild(cartItem);
-        total += item.price;
     });
-    
-    cartTotal.textContent = `$${total.toFixed(2)}/month`;
 }
 
 // Filter lessons
@@ -144,11 +137,8 @@ document.getElementById('checkoutBtnWhatsapp').addEventListener('click', () => {
     let message = "Hello! I would like to enroll in the following courses:\n\n";
     
     cart.forEach(item => {
-        message += `• ${item.title} - $${item.price}/month\n`;
+        message += `• ${item.title}\n`;
     });
-    
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    message += `\nTotal Investment: $${total.toFixed(2)}/month`;
     
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/60104210238?text=${encodedMessage}`, '_blank');
@@ -163,11 +153,8 @@ document.getElementById('checkoutBtnTelegram').addEventListener('click', () => {
     let message = "Hello! I would like to enroll in the following courses:\n\n";
     
     cart.forEach(item => {
-        message += `• ${item.title} - $${item.price}/month\n`;
+        message += `• ${item.title}\n`;
     });
-    
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    message += `\nTotal Investment: $${total.toFixed(2)}/month`;
     
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://t.me/rahim_5500`, '_blank');
