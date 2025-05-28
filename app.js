@@ -90,31 +90,267 @@ const lessons = [
     },
     {
         id: 3,
-        title: 'Pre-Intermediate English Course (B1)',
-        description: 'Advance your English skills with more complex grammar and vocabulary.',
+        title: {
+            en: 'Pre-Intermediate English Course (B1)',
+            tm: 'Orta öňi Iňlis dili kursy (B1)',
+            ru: 'Пре-интермедиат курс английского языка (B1)'
+        },
+        description: {
+            en: 'Advance your English skills with more complex grammar and vocabulary.',
+            tm: 'Çylşyrymly grammatika we söz baýlygy bilen Iňlis dili başarnyklaryňyzy ösdüriň.',
+            ru: 'Улучшите свой английский с помощью более сложной грамматики и словарного запаса.'
+        },
+        details: {
+            en: [
+                'Complex grammar structures',
+                'Business vocabulary',
+                'Presentation skills',
+                'Email writing',
+                'Advanced listening practice',
+                'Regular speaking sessions',
+                'Progress assessments'
+            ],
+            tm: [
+                'Çylşyrymly grammatika düzümleri',
+                'Iş söz baýlygy',
+                'Prezentasiýa başarnyklary',
+                'Email ýazmak',
+                'Ösen diňleýiş tejribesi',
+                'Yzygiderli gepleşik sessiýalary',
+                'Ösüş bahalandyrmalary'
+            ],
+            ru: [
+                'Сложные грамматические структуры',
+                'Деловой словарный запас',
+                'Навыки презентации',
+                'Написание электронных писем',
+                'Продвинутая практика аудирования',
+                'Регулярные разговорные сессии',
+                'Оценка прогресса'
+            ]
+        },
         level: 'intermediate',
         image: 'pre-intermediate.jpg'
     },
     {
         id: 4,
-        title: 'Intermediate English Course (B1-B2)',
-        description: 'Develop fluency and confidence in English through comprehensive practice.',
+        title: {
+            en: 'Intermediate English Course (B1-B2)',
+            tm: 'Orta Iňlis dili kursy (B1-B2)',
+            ru: 'Средний курс английского языка (B1-B2)'
+        },
+        description: {
+            en: 'Develop fluency and confidence in English through comprehensive practice.',
+            tm: 'Giňişleýin tejribe arkaly Iňlis dilinde akgynlyk we ynam gazanyň.',
+            ru: 'Развивайте беглость и уверенность в английском языке через комплексную практику.'
+        },
+        details: {
+            en: [
+                'Advanced grammar concepts',
+                'Professional vocabulary',
+                'Public speaking skills',
+                'Academic writing',
+                'Debate practice',
+                'Cultural understanding',
+                'Project work'
+            ],
+            tm: [
+                'Ösen grammatika düşünjeleri',
+                'Professional söz baýlygy',
+                'Köpçülikleýin çykyş etmek başarnyklary',
+                'Akademiki ýazuw',
+                'Debat tejribesi',
+                'Medeni düşünje',
+                'Taslama işi'
+            ],
+            ru: [
+                'Продвинутые грамматические концепции',
+                'Профессиональный словарный запас',
+                'Навыки публичных выступлений',
+                'Академическое письмо',
+                'Практика дебатов',
+                'Понимание культуры',
+                'Проектная работа'
+            ]
+        },
         level: 'intermediate',
         image: 'intermediate.jpg'
     },
     {
         id: 5,
-        title: 'Upper-Intermediate Course (B2)',
-        description: 'Master advanced grammar and vocabulary for professional contexts.',
+        title: {
+            en: 'Upper-Intermediate Course (B2)',
+            tm: 'Ýokary-Orta kurs (B2)',
+            ru: 'Курс выше среднего (B2)'
+        },
+        description: {
+            en: 'Master advanced grammar and vocabulary for professional contexts.',
+            tm: 'Professional ýagdaýlar üçin ösen grammatika we söz baýlygyny ele alyň.',
+            ru: 'Освойте продвинутую грамматику и словарный запас для профессионального контекста.'
+        },
+        details: {
+            en: [
+                'Complex language structures',
+                'Industry-specific vocabulary',
+                'Business communication',
+                'Report writing',
+                'Advanced presentation skills',
+                'Negotiation techniques',
+                'Leadership communication'
+            ],
+            tm: [
+                'Çylşyrymly dil düzümleri',
+                'Pudaga degişli söz baýlygy',
+                'Işewürlik aragatnaşygy',
+                'Hasabat ýazmak',
+                'Ösen prezentasiýa başarnyklary',
+                'Gepleşik alyp barmak usullary',
+                'Liderlik aragatnaşygy'
+            ],
+            ru: [
+                'Сложные языковые структуры',
+                'Отраслевой словарный запас',
+                'Деловое общение',
+                'Написание отчетов',
+                'Продвинутые навыки презентации',
+                'Техники ведения переговоров',
+                'Лидерское общение'
+            ]
+        },
         level: 'advanced',
         image: 'upper-intermediate.jpg'
     },
     {
         id: 6,
-        title: 'Advanced English Course (C1-C2)',
-        description: 'Achieve native-like fluency and master complex language skills.',
+        title: {
+            en: 'Advanced English Course (C1-C2)',
+            tm: 'Ösen Iňlis dili kursy (C1-C2)',
+            ru: 'Продвинутый курс английского языка (C1-C2)'
+        },
+        description: {
+            en: 'Achieve native-like fluency and master complex language skills.',
+            tm: 'Ene dili ýaly akgynlyga ýetiň we çylşyrymly dil başarnyklaryny ele alyň.',
+            ru: 'Достигните свободного владения языком и освойте сложные языковые навыки.'
+        },
+        details: {
+            en: [
+                'Native-level communication',
+                'Academic research writing',
+                'Professional presentations',
+                'Advanced debate skills',
+                'Cultural nuances',
+                'Literature analysis',
+                'Creative writing'
+            ],
+            tm: [
+                'Ene dili derejesinde aragatnaşyk',
+                'Akademiki gözleg ýazuw',
+                'Professional prezentasiýalar',
+                'Ösen debat başarnyklary',
+                'Medeni öwüşginler',
+                'Edebiýat derňewi',
+                'Döredijilikli ýazuw'
+            ],
+            ru: [
+                'Общение на уровне носителя языка',
+                'Академическое исследовательское письмо',
+                'Профессиональные презентации',
+                'Продвинутые навыки дебатов',
+                'Культурные нюансы',
+                'Анализ литературы',
+                'Креативное письмо'
+            ]
+        },
         level: 'advanced',
         image: 'advanced.jpg'
+    },
+    {
+        id: 7,
+        title: {
+            en: 'Business English (B2-C1)',
+            tm: 'Işewürlik Iňlis dili (B2-C1)',
+            ru: 'Деловой английский (B2-C1)'
+        },
+        description: {
+            en: 'Specialized course for business professionals and corporate communication.',
+            tm: 'Işewürler we korporatiw aragatnaşyk üçin ýöriteleşdirilen kurs.',
+            ru: 'Специализированный курс для бизнес-профессионалов и корпоративного общения.'
+        },
+        details: {
+            en: [
+                'Business correspondence',
+                'Meeting management',
+                'Negotiation skills',
+                'Professional presentations',
+                'International business etiquette',
+                'Report writing',
+                'Case studies'
+            ],
+            tm: [
+                'Işewürlik hat alyşmasy',
+                'Duşuşyk dolandyryşy',
+                'Gepleşik alyp barmak başarnyklary',
+                'Professional prezentasiýalar',
+                'Halkara işewürlik etikasy',
+                'Hasabat ýazmak',
+                'Tejribe derňewleri'
+            ],
+            ru: [
+                'Деловая переписка',
+                'Управление встречами',
+                'Навыки ведения переговоров',
+                'Профессиональные презентации',
+                'Международный деловой этикет',
+                'Написание отчетов',
+                'Разбор кейсов'
+            ]
+        },
+        level: 'advanced',
+        image: 'business.jpg'
+    },
+    {
+        id: 8,
+        title: {
+            en: 'IELTS Preparation Course',
+            tm: 'IELTS Taýýarlyk kursy',
+            ru: 'Подготовка к IELTS'
+        },
+        description: {
+            en: 'Comprehensive preparation for the IELTS exam with practice tests and strategies.',
+            tm: 'IELTS synagyna tejribe testleri we strategiýalar bilen giňişleýin taýýarlyk.',
+            ru: 'Комплексная подготовка к экзамену IELTS с практическими тестами и стратегиями.'
+        },
+        details: {
+            en: [
+                'IELTS exam structure',
+                'Test-taking strategies',
+                'Reading techniques',
+                'Writing task practice',
+                'Speaking confidence',
+                'Listening strategies',
+                'Mock exams'
+            ],
+            tm: [
+                'IELTS synag gurluşy',
+                'Test tabşyrmak strategiýalary',
+                'Okamak usullary',
+                'Ýazuw ýumuşlary tejribesi',
+                'Gepleşikde ynam',
+                'Diňlemek strategiýalary',
+                'Synag testleri'
+            ],
+            ru: [
+                'Структура экзамена IELTS',
+                'Стратегии сдачи теста',
+                'Техники чтения',
+                'Практика письменных заданий',
+                'Уверенность в разговоре',
+                'Стратегии аудирования',
+                'Пробные экзамены'
+            ]
+        },
+        level: 'advanced',
+        image: 'ielts.jpg'
     }
 ];
 
@@ -161,12 +397,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function toggleLanguage(lang) {
     currentLanguage = lang;
-    renderLessons(document.querySelector('.filter-btn.active').dataset.level);
-    
     // Update filter button text visibility
     document.querySelectorAll('.filter-btn span').forEach(span => {
-        span.style.display = span.classList.contains(lang) ? 'inline' : 'none';
+        span.style.display = 'none';
     });
+    document.querySelectorAll(`.filter-btn span.${lang}`).forEach(span => {
+        span.style.display = 'inline';
+    });
+    
+    // Re-render lessons with current filter
+    const activeFilter = document.querySelector('.filter-btn.active');
+    renderLessons(activeFilter ? activeFilter.dataset.level : 'all');
 }
 
 function getLevelLabel(level) {
@@ -187,11 +428,14 @@ function getLevelLabel(level) {
             ru: 'Продвинутый'
         }
     };
-    return labels[level][currentLanguage];
+    return labels[level][currentLanguage] || level;
 }
 
 // Render lessons
 function renderLessons(filterLevel = 'all') {
+    const lessonsContainer = document.getElementById('lessonsContainer');
+    if (!lessonsContainer) return;
+    
     lessonsContainer.innerHTML = '';
     
     const filteredLessons = filterLevel === 'all' 
@@ -201,17 +445,16 @@ function renderLessons(filterLevel = 'all') {
     filteredLessons.forEach(lesson => {
         const lessonCard = document.createElement('div');
         lessonCard.className = 'lesson-card';
-        
         lessonCard.innerHTML = createLessonCard(lesson);
-        
         lessonsContainer.appendChild(lessonCard);
     });
 }
 
 function createLessonCard(lesson) {
+    const defaultImage = 'https://via.placeholder.com/300x200?text=Course+Image';
     return `
         <div class="lesson-card" data-level="${lesson.level}">
-            <img src="images/${lesson.image}" alt="${lesson.title[currentLanguage]}" class="lesson-image" onerror="this.src='https://via.placeholder.com/300x200?text=Course+Image'">
+            <img src="images/${lesson.image}" alt="${lesson.title[currentLanguage]}" class="lesson-image" onerror="this.src='${defaultImage}'">
             <div class="lesson-content">
                 <span class="lesson-level">${getLevelLabel(lesson.level)}</span>
                 <h3 class="lesson-title">${lesson.title[currentLanguage]}</h3>

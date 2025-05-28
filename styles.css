@@ -221,21 +221,21 @@ body {
 .language-selector {
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 1rem;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid #eee;
 }
 
 .lang-btn {
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.5rem;
     border: 2px solid #007bff;
     background: white;
     color: #007bff;
     border-radius: 25px;
     cursor: pointer;
     font-weight: 500;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
 }
 
 .lang-btn.active {
@@ -252,8 +252,8 @@ body {
 .filter-buttons {
     display: flex;
     justify-content: center;
-    gap: 1rem;
     flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .filter-btn {
@@ -263,13 +263,20 @@ body {
     color: #333;
     border-radius: 25px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
     font-weight: 500;
+    min-width: 120px;
 }
 
-.filter-btn:hover, .filter-btn.active {
-    background-color: #007bff;
+.filter-btn:hover {
+    background: #e3e3e3;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: #007bff;
     color: white;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
 }
 
 .filter-btn span {
@@ -283,16 +290,18 @@ body {
 /* Course Cards */
 .lesson-card {
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    height: fit-content;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .lesson-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .lesson-image {
@@ -304,36 +313,42 @@ body {
 
 .lesson-content {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .lesson-level {
     display: inline-block;
-    padding: 0.25rem 0.75rem;
-    border-radius: 15px;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
     font-size: 0.875rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
     background: #e3f2fd;
     color: #1976d2;
     font-weight: 500;
+    align-self: flex-start;
 }
 
 .lesson-title {
     font-size: 1.25rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
     color: #333;
     font-weight: 600;
+    line-height: 1.4;
 }
 
 .lesson-description {
     color: #666;
-    margin-bottom: 1rem;
-    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex-grow: 1;
 }
 
 /* Course Details */
 .lesson-details {
     margin-top: 1rem;
-    padding: 1rem;
+    padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
     display: none;
@@ -342,8 +357,9 @@ body {
 
 .lesson-details h4 {
     color: #333;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
     font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .lesson-details ul {
@@ -353,49 +369,66 @@ body {
 }
 
 .lesson-details li {
-    padding: 0.5rem 0;
+    padding: 0.75rem 0;
     border-bottom: 1px solid #eee;
     color: #666;
     display: flex;
     align-items: center;
+    line-height: 1.5;
 }
 
 .lesson-details li:last-child {
     border-bottom: none;
+    padding-bottom: 0;
 }
 
 .lesson-details li:before {
     content: "•";
     color: #007bff;
     font-weight: bold;
-    margin-right: 0.5rem;
+    margin-right: 0.75rem;
+    font-size: 1.2em;
 }
 
 /* Card Buttons */
 .card-buttons {
     display: flex;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .expand-btn {
-    padding: 0.75rem;
+    padding: 0.75rem 1rem;
     background: #f8f9fa;
     color: #333;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: 500;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
     flex: 1;
 }
 
 .expand-btn:hover {
     background: #e9ecef;
+    border-color: #ccc;
 }
 
 .add-to-cart-btn {
+    padding: 0.75rem 1rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
     flex: 1;
+}
+
+.add-to-cart-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
 }
 
 @keyframes slideDown {
@@ -410,6 +443,17 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .cart {
+        order: -1;
+        margin-bottom: 2rem;
+    }
+}
+
 @media (max-width: 768px) {
     .level-filters {
         padding: 1rem;
@@ -427,6 +471,11 @@ body {
         width: 100%;
     }
 
+    .lessons-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
     .card-buttons {
         flex-direction: column;
     }
@@ -436,7 +485,7 @@ body {
     }
 
     .lesson-image {
-        height: 150px;
+        height: 180px;
     }
 }
 
@@ -566,12 +615,13 @@ body {
     display: grid;
     grid-template-columns: 1fr 300px;
     gap: 2rem;
+    margin-top: 2rem;
 }
 
 .lessons-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
 /* Cart Section */
