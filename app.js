@@ -130,9 +130,64 @@ let cart = [];
 let currentLanguage = 'tm'; // Default language
 let expandedCard = null;
 
+// Initialize the page when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize language buttons
+    const langButtons = document.querySelectorAll('.lang-btn');
+    langButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            toggleLanguage(lang);
+            
+            // Update active state of language buttons
+            langButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+
+    // Initialize filter buttons
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderLessons(btn.dataset.level);
+        });
+    });
+
+    // Initial render
+    renderLessons('all');
+});
+
 function toggleLanguage(lang) {
     currentLanguage = lang;
     renderLessons(document.querySelector('.filter-btn.active').dataset.level);
+    
+    // Update filter button text visibility
+    document.querySelectorAll('.filter-btn span').forEach(span => {
+        span.style.display = span.classList.contains(lang) ? 'inline' : 'none';
+    });
+}
+
+function getLevelLabel(level) {
+    const labels = {
+        beginner: {
+            en: 'Beginner',
+            tm: 'Başlangyç',
+            ru: 'Начальный'
+        },
+        intermediate: {
+            en: 'Intermediate',
+            tm: 'Orta',
+            ru: 'Средний'
+        },
+        advanced: {
+            en: 'Advanced',
+            tm: 'Ýokary',
+            ru: 'Продвинутый'
+        }
+    };
+    return labels[level][currentLanguage];
 }
 
 // Render lessons
@@ -156,7 +211,7 @@ function renderLessons(filterLevel = 'all') {
 function createLessonCard(lesson) {
     return `
         <div class="lesson-card" data-level="${lesson.level}">
-            <img src="images/${lesson.image}" alt="${lesson.title[currentLanguage]}" class="lesson-image">
+            <img src="images/${lesson.image}" alt="${lesson.title[currentLanguage]}" class="lesson-image" onerror="this.src='https://via.placeholder.com/300x200?text=Course+Image'">
             <div class="lesson-content">
                 <span class="lesson-level">${getLevelLabel(lesson.level)}</span>
                 <h3 class="lesson-title">${lesson.title[currentLanguage]}</h3>
@@ -172,7 +227,7 @@ function createLessonCard(lesson) {
                     </ul>
                 </div>
                 <div class="card-buttons">
-                    <button class="expand-btn" onclick="toggleDetails(this)">
+                    <button class="expand-btn" onclick="toggleDetails(event, ${lesson.id})">
                         ${
                             currentLanguage === 'en' ? 'More Info' :
                             currentLanguage === 'tm' ? 'Giňişleýin' :
@@ -192,7 +247,9 @@ function createLessonCard(lesson) {
     `;
 }
 
-function toggleDetails(button) {
+function toggleDetails(event, lessonId) {
+    event.preventDefault();
+    const button = event.target;
     const card = button.closest('.lesson-card');
     const details = card.querySelector('.lesson-details');
     const wasExpanded = details.style.display === 'block';
@@ -230,14 +287,21 @@ function addToCart(lessonId) {
         cart.push(lesson);
         updateCart();
     } else {
-        alert('This course is already in your cart');
+        alert(
+            currentLanguage === 'en' ? 'This course is already in your cart' :
+            currentLanguage === 'tm' ? 'Bu kurs eýýäm sebetiňizde bar' :
+            'Этот курс уже в вашей корзине'
+        );
     }
 }
 
 // Remove from cart
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCart();
+function removeFromCart(lessonId) {
+    const index = cart.findIndex(item => item.id === lessonId);
+    if (index !== -1) {
+        cart.splice(index, 1);
+        updateCart();
+    }
 }
 
 // Update cart display
@@ -254,23 +318,20 @@ function updateCart() {
     });
 }
 
-// Filter lessons
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderLessons(btn.dataset.level);
-    });
-});
-
 // Handle checkout buttons
-document.getElementById('checkoutBtnWhatsapp').addEventListener('click', () => {
+document.getElementById('checkoutBtnWhatsapp')?.addEventListener('click', () => {
     if (cart.length === 0) {
-        alert('Your cart is empty!');
+        alert(
+            currentLanguage === 'en' ? 'Your cart is empty!' :
+            currentLanguage === 'tm' ? 'Sebetiňiz boş!' :
+            'Ваша корзина пуста!'
+        );
         return;
     }
 
-    let message = "Hello! I would like to enroll in the following courses:\n\n";
+    let message = currentLanguage === 'en' ? "Hello! I would like to enroll in the following courses:\n\n" :
+                 currentLanguage === 'tm' ? "Salam! Men şu kurslara ýazylmak isleýärin:\n\n" :
+                 "Здравствуйте! Я хотел бы записаться на следующие курсы:\n\n";
     
     cart.forEach(item => {
         message += `• ${item.title[currentLanguage]}\n`;
@@ -280,13 +341,19 @@ document.getElementById('checkoutBtnWhatsapp').addEventListener('click', () => {
     window.open(`https://wa.me/60104210238?text=${encodedMessage}`, '_blank');
 });
 
-document.getElementById('checkoutBtnTelegram').addEventListener('click', () => {
+document.getElementById('checkoutBtnTelegram')?.addEventListener('click', () => {
     if (cart.length === 0) {
-        alert('Your cart is empty!');
+        alert(
+            currentLanguage === 'en' ? 'Your cart is empty!' :
+            currentLanguage === 'tm' ? 'Sebetiňiz boş!' :
+            'Ваша корзина пуста!'
+        );
         return;
     }
 
-    let message = "Hello! I would like to enroll in the following courses:\n\n";
+    let message = currentLanguage === 'en' ? "Hello! I would like to enroll in the following courses:\n\n" :
+                 currentLanguage === 'tm' ? "Salam! Men şu kurslara ýazylmak isleýärin:\n\n" :
+                 "Здравствуйте! Я хотел бы записаться на следующие курсы:\n\n";
     
     cart.forEach(item => {
         message += `• ${item.title[currentLanguage]}\n`;
@@ -294,7 +361,4 @@ document.getElementById('checkoutBtnTelegram').addEventListener('click', () => {
     
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://t.me/rahim_5500`, '_blank');
-});
-
-// Initial render
-renderLessons(); 
+}); 

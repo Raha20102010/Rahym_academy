@@ -202,19 +202,58 @@ body {
     animation: fadeIn 0.8s ease-out 1.2s backwards;
 }
 
-/* Course Filters */
+/* Level Filters Container */
 .level-filters {
     background: rgba(255, 255, 255, 0.97);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.5);
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 10px;
     margin-bottom: 2rem;
     display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Language Selector */
+.language-selector {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.lang-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid #007bff;
+    background: white;
+    color: #007bff;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.lang-btn.active {
+    background: #007bff;
+    color: white;
+}
+
+.lang-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}
+
+/* Filter Buttons */
+.filter-buttons {
+    display: flex;
     justify-content: center;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .filter-btn {
@@ -231,6 +270,174 @@ body {
 .filter-btn:hover, .filter-btn.active {
     background-color: #007bff;
     color: white;
+}
+
+.filter-btn span {
+    display: none;
+}
+
+.filter-btn span.tm {
+    display: inline;
+}
+
+/* Course Cards */
+.lesson-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    height: fit-content;
+}
+
+.lesson-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.lesson-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.lesson-content {
+    padding: 1.5rem;
+}
+
+.lesson-level {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+    background: #e3f2fd;
+    color: #1976d2;
+    font-weight: 500;
+}
+
+.lesson-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.lesson-description {
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+/* Course Details */
+.lesson-details {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    display: none;
+    animation: slideDown 0.3s ease-out;
+}
+
+.lesson-details h4 {
+    color: #333;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.lesson-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lesson-details li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.lesson-details li:last-child {
+    border-bottom: none;
+}
+
+.lesson-details li:before {
+    content: "•";
+    color: #007bff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/* Card Buttons */
+.card-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.expand-btn {
+    padding: 0.75rem;
+    background: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+    flex: 1;
+}
+
+.expand-btn:hover {
+    background: #e9ecef;
+}
+
+.add-to-cart-btn {
+    flex: 1;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .level-filters {
+        padding: 1rem;
+    }
+
+    .language-selector {
+        flex-wrap: wrap;
+    }
+
+    .filter-buttons {
+        flex-direction: column;
+    }
+
+    .filter-btn {
+        width: 100%;
+    }
+
+    .card-buttons {
+        flex-direction: column;
+    }
+
+    .expand-btn, .add-to-cart-btn {
+        width: 100%;
+    }
+
+    .lesson-image {
+        height: 150px;
+    }
 }
 
 /* Video Section */
@@ -365,73 +572,6 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
-}
-
-.lesson-card {
-    background: rgba(255, 255, 255, 0.97);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: scaleIn 0.5s ease-out backwards;
-}
-
-.lesson-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-}
-
-.lesson-image {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-}
-
-.lesson-content {
-    padding: 1.5rem;
-}
-
-.lesson-level {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    border-radius: 15px;
-    font-size: 0.875rem;
-    margin-bottom: 0.75rem;
-    background: #e3f2fd;
-    color: #1976d2;
-    font-weight: 500;
-}
-
-.lesson-title {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    color: #333;
-    font-weight: 600;
-}
-
-.lesson-description {
-    color: #666;
-    margin-bottom: 1rem;
-    line-height: 1.5;
-}
-
-.add-to-cart-btn {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s;
-}
-
-.add-to-cart-btn:hover {
-    background-color: #0056b3;
 }
 
 /* Cart Section */
@@ -1101,34 +1241,6 @@ html {
 
 .chat-header .material-icons {
     font-size: 24px;
-}
-
-/* Language Selector */
-.language-selector {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.lang-btn {
-    padding: 0.5rem 1rem;
-    border: 2px solid #007bff;
-    background: white;
-    color: #007bff;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s;
-}
-
-.lang-btn.active {
-    background: #007bff;
-    color: white;
-}
-
-.lang-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
 }
 
 /* Filter Buttons */
