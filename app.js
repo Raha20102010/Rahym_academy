@@ -50,37 +50,11 @@ const lessons = [
     }
 ];
 
-// Sample video data (this will be replaced with actual videos from admin panel)
-const videos = [
-    {
-        id: 1,
-        title: "Welcome to Rahym Academy",
-        description: "Learn about our teaching methods and what makes us unique",
-        thumbnail: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=500",
-        uploadDate: "2024-03-20"
-    },
-    {
-        id: 2,
-        title: "Basic English Grammar - Part 1",
-        description: "Essential grammar rules for beginners with practical examples",
-        thumbnail: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=500",
-        uploadDate: "2024-03-21"
-    },
-    {
-        id: 3,
-        title: "Business English - Meeting Vocabulary",
-        description: "Key phrases and vocabulary for professional meetings",
-        thumbnail: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500",
-        uploadDate: "2024-03-22"
-    },
-    {
-        id: 4,
-        title: "Pronunciation Tips & Tricks",
-        description: "Improve your English pronunciation with these helpful techniques",
-        thumbnail: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=500",
-        uploadDate: "2024-03-23"
-    }
-];
+// Get videos from localStorage instead of using sample data
+function getVideos() {
+    const storedVideos = localStorage.getItem('videos');
+    return storedVideos ? JSON.parse(storedVideos) : [];
+}
 
 // Initial render - moved to top to ensure it runs immediately
 document.addEventListener('DOMContentLoaded', () => {
@@ -130,18 +104,32 @@ function renderVideos() {
     if (!videoContainer) return;
     
     videoContainer.innerHTML = '';
+    const videos = getVideos();
+    
+    if (videos.length === 0) {
+        videoContainer.innerHTML = `
+            <div style="text-align: center; color: #666; padding: 2rem;">
+                <p>Häzirki wagtda wideolar ýok.</p>
+                <p>Täze wideolar goşulan badyna şu ýerde peýda bolar.</p>
+            </div>
+        `;
+        return;
+    }
     
     videos.forEach(video => {
         const videoCard = document.createElement('div');
         videoCard.className = 'video-card';
         
         videoCard.innerHTML = `
-            <img src="${video.thumbnail}" alt="${video.title}" class="video-thumbnail">
+            <video class="video-thumbnail" controls>
+                <source src="${video.url}" type="${video.type}">
+                Your browser does not support the video tag.
+            </video>
             <div class="video-info">
                 <h3 class="video-title">${video.title}</h3>
                 <p class="video-description">${video.description}</p>
                 <div class="video-meta">
-                    <span>Uploaded: ${video.uploadDate}</span>
+                    <span>Added: ${new Date(video.uploadDate).toLocaleDateString()}</span>
                 </div>
             </div>
         `;

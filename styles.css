@@ -280,6 +280,17 @@ body {
     height: 200px;
     object-fit: cover;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: #f8f9fa;
+    cursor: pointer;
+}
+
+video.video-thumbnail {
+    background: #000;
+    object-fit: contain;
+}
+
+.video-card:hover .video-thumbnail {
+    opacity: 0.9;
 }
 
 .video-info {
