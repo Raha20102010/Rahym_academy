@@ -58,6 +58,27 @@ const videos = [
         description: "Learn about our teaching methods and what makes us unique",
         thumbnail: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=500",
         uploadDate: "2024-03-20"
+    },
+    {
+        id: 2,
+        title: "Basic English Grammar - Part 1",
+        description: "Essential grammar rules for beginners with practical examples",
+        thumbnail: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=500",
+        uploadDate: "2024-03-21"
+    },
+    {
+        id: 3,
+        title: "Business English - Meeting Vocabulary",
+        description: "Key phrases and vocabulary for professional meetings",
+        thumbnail: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500",
+        uploadDate: "2024-03-22"
+    },
+    {
+        id: 4,
+        title: "Pronunciation Tips & Tricks",
+        description: "Improve your English pronunciation with these helpful techniques",
+        thumbnail: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=500",
+        uploadDate: "2024-03-23"
     }
 ];
 
