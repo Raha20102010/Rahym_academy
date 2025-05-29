@@ -622,7 +622,7 @@ document.getElementById('checkoutBtnWhatsapp')?.addEventListener('click', () => 
     });
     
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/60104210238?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/+60104210238?text=${encodedMessage}`, '_blank');
 });
 
 document.getElementById('checkoutBtnTelegram')?.addEventListener('click', () => {
@@ -635,14 +635,5 @@ document.getElementById('checkoutBtnTelegram')?.addEventListener('click', () => 
         return;
     }
 
-    let message = currentLanguage === 'en' ? "Hello! I would like to enroll in the following courses:\n\n" :
-                 currentLanguage === 'tm' ? "Salam! Men şu kurslara ýazylmak isleýärin:\n\n" :
-                 "Здравствуйте! Я хотел бы записаться на следующие курсы:\n\n";
-    
-    cart.forEach(item => {
-        message += `• ${item.title[currentLanguage]}\n`;
-    });
-    
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://t.me/rahim_5500`, '_blank');
+    window.open('https://t.me/rahim_5500', '_blank');
 }); 
